@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Summarist | Library{% endblock %}
+
+{% block content %}
+<section class="page-shell page-shell--loggedin">
+  <div class="container narrow">
+    <div class="row app-layout">
+      <aside class="sidebar">
+        <div class="sidebar__top">
+          <div class="sidebar__brand-wrap">
+            <img src="{% static 'images/logo.png' %}" alt="Summarist logo" class="sidebar__brand" />
+          </div>
+          <a href="{% url 'for_you' %}" class="sidebar__item">For you</a>
+          <a href="{% url 'library' %}" class="sidebar__item active">Library</a>
+          <div class="sidebar__item muted">Highlights</div>
+          <div class="sidebar__item muted">Search</div>
+        </div>
+        <div class="sidebar__bottom">
+          <div class="sidebar__item muted">Help & Support</div>
+          <a href="{% url 'settings' %}" class="sidebar__item">Settings</a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'logout_user' %}" class="sidebar__item">Logout</a>
+          {% else %}
+            <button type="button" class="sidebar__item sidebar__button" data-open-auth="true">Login</button>
+          {% endif %}
+        </div>
+      </aside>
+
+      <main class="content-panel">
+        <div class="library-grid">
+          <div class="library-panel">
+            <div class="section-heading">My Library</div>
+            <div class="book-grid two-col">
+              {% for book in library_books %}
+              <article class="book-card">
+                <a href="{% url 'book_detail' book.id %}">
+                  <img src="{{ book.image }}" alt="{{ book.title }}" />
+                  <div class="book-card__title">{{ book.title }}</div>
+                  <div class="book-card__author">{{ book.author }}</div>
+                </a>
+              </article>
+              {% empty %}
+              <div class="empty-state">No saved books yet.</div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="library-panel">
+            <div class="section-heading">Finished Books</div>
+            <div class="book-grid two-col">
+              {% for book in finished_books %}
+              <article class="book-card">
+                <a href="{% url 'book_detail' book.id %}">
+                  <img src="{{ book.image }}" alt="{{ book.title }}" />
+                  <div class="book-card__title">{{ book.title }}</div>
+                  <div class="book-card__author">{{ book.author }}</div>
+                </a>
+              </article>
+              {% empty %}
+              <div class="empty-state">No finished books yet.</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</section>
+{% endblock %}

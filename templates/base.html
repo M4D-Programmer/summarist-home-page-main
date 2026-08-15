@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Summarist{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  </head>
+  <body>
+    {% if request.path == '/' %}
+      <nav class="nav">
+        <div class="nav__wrapper">
+          <a href="{% url 'home' %}" class="nav__brand" aria-label="Home">
+            <img src="{% static 'images/logo.png' %}" alt="Summarist logo" class="nav__img" />
+          </a>
+          <ul class="nav__list--wrapper">
+            {% if user.is_authenticated %}
+              <li class="nav__list nav__list--login"><a href="{% url 'logout_user' %}">Logout</a></li>
+            {% else %}
+              <li class="nav__list nav__list--login"><button type="button" class="link-button" data-open-auth="true">Login</button></li>
+            {% endif %}
+            <li class="nav__list nav__list--mobile"><a href="{% url 'settings' %}">Settings</a></li>
+            <li class="nav__list nav__list--mobile"><a href="{% url 'library' %}">Library</a></li>
+            <li class="nav__list nav__list--mobile">Help</li>
+          </ul>
+        </div>
+      </nav>
+    {% else %}
+      <nav class="nav nav--loggedin">
+        <div class="nav__wrapper nav__wrapper--loggedin">
+          <div class="nav__loggedin-actions">
+            <form class="top-search top-search--header" method="get" action="{% url 'search' %}">
+              <input type="search" name="q" placeholder="Search for a book or author" value="{{ query|default:'' }}" />
+            </form>
+          </div>
+        </div>
+      </nav>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+    <div id="auth-modal" class="auth-modal hidden">
+      <div class="auth-modal__panel">
+        <button class="auth-modal__close" type="button" aria-label="Close">×</button>
+        <h2>Welcome back</h2>
+        <form method="post" action="{% url 'handle_auth' %}">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="login" id="auth-action" />
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" placeholder="you@example.com" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" name="password" placeholder="Enter your password" required />
+          </label>
+          {% if auth_error %}
+            <div class="auth-error">{{ auth_error }}</div>
+          {% endif %}
+          <button class="btn" type="submit">Login</button>
+          <div class="auth-modal__actions">
+            <button type="button" class="ghost-btn" data-auth-mode="login">Login</button>
+            <button type="button" class="ghost-btn" data-auth-mode="register">Register</button>
+            <button type="button" class="ghost-btn ghost-btn--guest" data-guest-login="true">Guest Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="{% static 'auth.js' %}"></script>
+
+    {% if request.path == '/' %}
+      <footer id="footer">
+        <div class="container">
+          <div class="row footer__top--wrapper">
+            <div class="footer__block">
+              <div class="footer__link--title">Company</div>
+              <div class="footer__link--wrapper"><a class="footer__link" href="#">About</a></div>
+              <div class="footer__link--wrapper"><a class="footer__link" href="#">Contact</a></div>
+              <div class="footer__link--wrapper"><a class="footer__link" href="#">Help</a></div>
+            </div>
+            <div class="footer__block">
+              <div class="footer__link--title">Product</div>
+              <div class="footer__link--wrapper"><a class="footer__link" href="#">Books</a></div>
+              <div class="footer__link--wrapper"><a class="footer__link" href="#">Audio</a></div>
+              <div class="footer__link--wrapper"><a class="footer__link" href="#">Subscriptions</a></div>
+            </div>
+            <div class="footer__block">
+              <div class="footer__link--title">Connect</div>
+              <div class="footer__social--text"><b>twitter</b></div>
+              <div class="footer__social--text"><b>facebook</b></div>
+              <div class="footer__social--text"><b>instagram</b></div>
+            </div>
+          </div>
+          <div class="footer__copyright--wrapper">
+            <div class="footer__copyright">© 2026 Summarist</div>
+          </div>
+        </div>
+      </footer>
+    {% endif %}
+  </body>
+</html>

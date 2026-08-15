@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Summarist | {{ book.title }}{% endblock %}
+
+{% block content %}
+<section class="page-shell page-shell--single">
+  <div class="container narrow">
+    <div class="row">
+      <div class="player-card">
+        <div class="player-card__cover">
+          <img src="{{ book.image }}" alt="{{ book.title }}" />
+        </div>
+        <div class="player-card__details">
+          <div class="book-showcase__eyebrow">Now Playing</div>
+          <h1>{{ book.title }}</h1>
+          <p>{{ book.summary }}</p>
+          <audio controls class="audio-player">
+            <source src="{{ book.audio_url }}" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

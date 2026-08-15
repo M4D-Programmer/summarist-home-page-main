@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Summarist | For You{% endblock %}
+
+{% block content %}
+<section class="page-shell page-shell--loggedin">
+    <div class="wrapper">
+    <div class="sidebar">
+        <div class="sidebar__brand-wrap">
+            <img src="{% static 'images/logo.png' %}" alt="Summarist logo" class="sidebar__brand" />
+        </div>
+        <div class="sidebar__top">
+          <a href="{% url 'for_you' %}" class="sidebar__item active">For you</a>
+          <a href="{% url 'library' %}" class="sidebar__item">Library</a>
+          <div class="sidebar__item muted">Highlights</div>
+          <div class="sidebar__item muted">Search</div>
+        </div>
+        <div class="sidebar__bottom">
+          <a href="{% url 'settings' %}" class="sidebar__item">Settings</a>
+          <div class="sidebar__item muted">Help & Support</div>
+          {% if user.is_authenticated %}
+            <a href="{% url 'logout_user' %}" class="sidebar__item">Logout</a>
+          {% else %}
+            <button type="button" class="sidebar__item sidebar__button" data-open-auth="true">Login</button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  <div class="container narrow">
+    <div class="container">
+      <main class="content-panel">
+        <div class="book-showcase">
+          <div class="book-showcase__image">
+            <img src="{{ selected_book.image }}" alt="{{ selected_book.title }}" />
+          </div>
+          <div class="book-showcase__content">
+            <div class="pill-pill">{{ selected_book.subscription_required|yesno:'Premium,Free' }}</div>
+            <div class="book-showcase__eyebrow">Selected Book</div>
+            <h1>{{ selected_book.title }}</h1>
+            <p>{{ selected_book.subtitle }}</p>
+            <div class="book-showcase__meta">By {{ selected_book.author }} · {{ selected_book.type }}</div>
+            <div class="book-showcase__actions">
+              <a class="btn btn--small" href="{% url 'book_detail' selected_book.id %}">Read</a>
+              <a class="btn btn--small btn--secondary" href="{% url 'book_detail' selected_book.id %}">Listen</a>
+            </div>
+          </div>
+        </div>
+
+        <section class="book-section">
+          <div class="section-heading">Recommended Books</div>
+          <div class="book-grid">
+            {% for book in recommended_books %}
+            <article class="book-card">
+              <a href="{% url 'book_detail' book.id %}">
+                <img src="{{ book.image }}" alt="{{ book.title }}" />
+                <div class="book-card__title">{{ book.title }}</div>
+                <div class="book-card__author">{{ book.author }}</div>
+              </a>
+            </article>
+            {% endfor %}
+          </div>
+        </section>
+
+        <section class="book-section">
+          <div class="section-heading">Suggested Books</div>
+          <div class="book-grid">
+            {% for book in suggested_books %}
+            <article class="book-card">
+              <a href="{% url 'book_detail' book.id %}">
+                <img src="{{ book.image }}" alt="{{ book.title }}" />
+                <div class="book-card__title">{{ book.title }}</div>
+                <div class="book-card__author">{{ book.author }}</div>
+              </a>
+            </article>
+            {% endfor %}
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</section>
+{% endblock %}

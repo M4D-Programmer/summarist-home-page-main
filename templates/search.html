@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Summarist | Search{% endblock %}
+
+{% block content %}
+<section class="page-shell">
+  <div class="container narrow">
+    <div class="row">
+      <div class="search-panel">
+        <div class="section-heading">Search Results</div>
+        {% if query %}
+          <p class="search-summary">Showing results for: <strong>{{ query }}</strong></p>
+        {% else %}
+          <p class="search-summary">Enter a title or an author to search.</p>
+        {% endif %}
+
+        {% if results %}
+          <div class="book-grid three-col">
+            {% for book in results %}
+            <article class="book-card">
+              <a href="{% url 'book_detail' book.id %}">
+                <img src="{{ book.image }}" alt="{{ book.title }}" />
+                <div class="book-card__title">{{ book.title }}</div>
+                <div class="book-card__author">{{ book.author }}</div>
+              </a>
+            </article>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="skeleton-list">
+            <div class="skeleton-box long"></div>
+            <div class="skeleton-box"></div>
+            <div class="skeleton-box medium"></div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

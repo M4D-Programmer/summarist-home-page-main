@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Summarist | Choose Plan{% endblock %}
+
+{% block content %}
+<section class="pricing">
+  <div class="container narrow">
+    <div class="row">
+      <div class="pricing__header">
+        <div class="section__title">Choose your plan</div>
+        <p>Start with a free trial and unlock unlimited learning.</p>
+      </div>
+      <div class="pricing__grid">
+        <form method="post" class="pricing__card" action="{% url 'choose_plan' %}">
+          {% csrf_token %}
+          <div class="pricing__card--title">Basic</div>
+          <div class="pricing__card--price">$9<span>/mo</span></div>
+          <ul>
+            <li>Access to selected summaries</li>
+            <li>Daily reading recommendations</li>
+            <li>Mobile friendly</li>
+          </ul>
+          <input type="hidden" name="plan" value="basic" />
+          <button class="btn btn--small" type="submit">Choose Basic</button>
+        </form>
+        <form method="post" class="pricing__card pricing__card--featured" action="{% url 'choose_plan' %}">
+          {% csrf_token %}
+          <div class="pricing__badge">Most Popular</div>
+          <div class="pricing__card--title">Premium</div>
+          <div class="pricing__card--price">$19<span>/mo</span></div>
+          <ul>
+            <li>Everything in Basic</li>
+            <li>Unlimited audio playback</li>
+            <li>Premium book library</li>
+          </ul>
+          <input type="hidden" name="plan" value="premium" />
+          <button class="btn btn--small" type="submit">Choose Premium</button>
+        </form>
+        <form method="post" class="pricing__card" action="{% url 'choose_plan' %}">
+          {% csrf_token %}
+          <div class="pricing__card--title">Annual</div>
+          <div class="pricing__card--price">$144<span>/yr</span></div>
+          <ul>
+            <li>7-day free trial</li>
+            <li>Best value</li>
+            <li>Save 20% every year</li>
+          </ul>
+          <input type="hidden" name="plan" value="annual" />
+          <button class="btn btn--small" type="submit">Choose Annual</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

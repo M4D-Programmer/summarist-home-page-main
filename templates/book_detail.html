@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Summarist | {{ book.title }}{% endblock %}
+
+{% block content %}
+<section class="page-shell page-shell--single">
+  <div class="container narrow">
+    <div class="row">
+      <div class="book-detail">
+        <div class="book-detail__cover">
+          <img src="{{ book.image }}" alt="{{ book.title }}" />
+        </div>
+        <div class="book-detail__content">
+          <div class="pill-pill">{% if book.subscription_required %}Premium{% else %}Free{% endif %}</div>
+          <h1>{{ book.title }}</h1>
+          <div class="book-detail__meta">By {{ book.author }}</div>
+          <div class="book-detail__meta">Rating: {{ book.rating }} / 5</div>
+          <p class="book-detail__summary">{{ book.summary }}</p>
+          <div class="book-detail__actions">
+            <a class="btn btn--small" href="{% url 'player' book.id %}">Read or Listen</a>
+            <a class="btn btn--small btn--secondary" href="{% url 'save_book' book.id %}">Add to My Library</a>
+            <a class="btn btn--small btn--secondary" href="{% url 'choose_plan' %}">Upgrade</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
