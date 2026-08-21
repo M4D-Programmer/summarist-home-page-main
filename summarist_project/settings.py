@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-@$g)gh%jr(iiv$hqa$cskx^8xns)+f$$et__yz%0cv(wia$p*x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['summarist-project-1.onrender.com', 'localhost']
+ALLOWED_HOSTS = ['summarist-project-wbbo.onrender.com', 'localhost']
 
 
 # Application definition
