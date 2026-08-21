@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'summarist_project.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@localhost:5432/summarist_project',
+        default='postgresql://postgres:postgres@localhost:5432/summarist_db',
         conn_max_age=600
     )
 }
