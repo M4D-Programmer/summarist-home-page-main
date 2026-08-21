@@ -10,7 +10,7 @@ services:
     name: summarist_project
     runtime: python
     buildCommand: './build.sh'
-    startCommand: 'python manage.py loaddata datadump.json&& python manage.py migrate && python -m gunicorn summarist_project.asgi:application -k uvicorn.workers.UvicornWorker'
+    startCommand: 'python manage.py loaddata datadump.json && python manage.py migrate && python -m gunicorn summarist_project.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
       - key: DATABASE_URL
         fromDatabase:
