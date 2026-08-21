@@ -21,6 +21,8 @@
                 <img src="{{ book.image }}" alt="{{ book.title }}" />
                 <div class="book-card__title">{{ book.title }}</div>
                 <div class="book-card__author">{{ book.author }}</div>
+                <div class="book-card__subtitle">{{ book.subtitle }}</div>
+                <div class="book-card__meta"><span>⏱️ {{ book.length }}</span> <span>⭐ {{ book.rating }}</span></div>
               </a>
             </article>
             {% endfor %}

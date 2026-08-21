@@ -10,18 +10,18 @@
             <img src="{% static 'images/logo.png' %}" alt="Summarist logo" class="sidebar__brand" />
         </div>
         <div class="sidebar__top">
-          <a href="{% url 'for_you' %}" class="sidebar__item active">For you</a>
-          <a href="{% url 'library' %}" class="sidebar__item">Library</a>
-          <div class="sidebar__item muted">Highlights</div>
-          <div class="sidebar__item muted">Search</div>
+          <a href="{% url 'for_you' %}" class="sidebar__item active"><span>🏠 </span> For you</a>
+          <a href="{% url 'library' %}" class="sidebar__item"><span>💾 </span> Library</a>
+          <div class="sidebar__item muted"><span>✏️ </span> Highlights</div>
+          <div class="sidebar__item muted"><span>🔍 </span> Search</div>
         </div>
         <div class="sidebar__bottom">
-          <a href="{% url 'settings' %}" class="sidebar__item">Settings</a>
-          <div class="sidebar__item muted">Help & Support</div>
+          <a href="{% url 'settings' %}" class="sidebar__item"><span>⚙️ </span> Settings</a>
+          <div class="sidebar__item muted"><span>❓ </span> Help & Support</div>
           {% if user.is_authenticated %}
-            <a href="{% url 'logout_user' %}" class="sidebar__item">Logout</a>
+            <a href="{% url 'logout_user' %}" class="sidebar__item"><span>🚪 </span> Logout</a>
           {% else %}
-            <button type="button" class="sidebar__item sidebar__button" data-open-auth="true">Login</button>
+            <button type="button" class="sidebar__item sidebar__button" data-open-auth="true"><span>🚪</span> Login</button>
           {% endif %}
         </div>
       </div>
@@ -38,7 +38,7 @@
             <div class="book-showcase__eyebrow">Selected Book</div>
             <h1>{{ selected_book.title }}</h1>
             <p>{{ selected_book.subtitle }}</p>
-            <div class="book-showcase__meta">By {{ selected_book.author }} · {{ selected_book.type }}</div>
+            <div class="book-showcase__meta">By {{ selected_book.author }} · {{ selected_book.subtitle }}</div>
             <div class="book-showcase__actions">
               <a class="btn btn--small" href="{% url 'book_detail' selected_book.id %}">Read</a>
               <a class="btn btn--small btn--secondary" href="{% url 'book_detail' selected_book.id %}">Listen</a>
@@ -55,6 +55,8 @@
                 <img src="{{ book.image }}" alt="{{ book.title }}" />
                 <div class="book-card__title">{{ book.title }}</div>
                 <div class="book-card__author">{{ book.author }}</div>
+                <div class="book-card__subtitle">{{ book.subtitle }}</div>
+                <div class="book-card__meta"><span>⏱️ {{ book.length }}</span> <span>⭐ {{ book.rating }}</span></div>
               </a>
             </article>
             {% endfor %}
@@ -70,6 +72,8 @@
                 <img src="{{ book.image }}" alt="{{ book.title }}" />
                 <div class="book-card__title">{{ book.title }}</div>
                 <div class="book-card__author">{{ book.author }}</div>
+                <div class="book-card__subtitle">{{ book.subtitle }}</div>
+                <div class="book-card__meta"><span>⏱️ {{ book.length }}</span> <span>⭐ {{ book.rating }}</span></div>
               </a>
             </article>
             {% endfor %}

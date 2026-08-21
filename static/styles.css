@@ -532,11 +532,18 @@ button {
 .sidebar__item {
   display: flex;
   align-items: center;
+  gap: 10px;
   height: 56px;
   color: #032b41;
   font-weight: 500;
   margin-bottom: 8px;
   padding: 12px 10px;
+}
+
+.sidebar__item span {
+  display: inline-flex;
+  width: 20px;
+  justify-content: center;
 }
 
 .sidebar__item.active {
@@ -678,6 +685,23 @@ button {
 
 .book-card__author {
   color: #6b757b;
+}
+
+.book-card__subtitle {
+  color: #6b757b;
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.book-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: #394547;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .book-detail {
@@ -890,8 +914,7 @@ button {
 
 .library-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 28px;
+  gap: 16px;
 }
 
 .empty-state {
@@ -899,13 +922,6 @@ button {
   padding: 10px 0;
 }
 
-.book-grid.two-col {
-  grid-template-columns: repeat(2, minmax(220px, 1fr));
-}
-
-.book-grid.three-col {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
 
 .skeleton-list {
   display: grid;

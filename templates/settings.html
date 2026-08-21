@@ -6,26 +6,28 @@
 <section class="page-shell page-shell--loggedin">
   <div class="container narrow">
     <div class="row app-layout">
-      <aside class="sidebar">
-        <div class="sidebar__top">
-          <div class="sidebar__brand-wrap">
+      <div class="wrapper">
+    <div class="sidebar">
+        <div class="sidebar__brand-wrap">
             <img src="{% static 'images/logo.png' %}" alt="Summarist logo" class="sidebar__brand" />
-          </div>
-          <a href="{% url 'for_you' %}" class="sidebar__item">For you</a>
-          <a href="{% url 'library' %}" class="sidebar__item">Library</a>
-          <div class="sidebar__item muted">Highlights</div>
-          <div class="sidebar__item muted">Search</div>
+        </div>
+        <div class="sidebar__top">
+          <a href="{% url 'for_you' %}" class="sidebar__item active"><span>🏠 </span> For you</a>
+          <a href="{% url 'library' %}" class="sidebar__item"><span>💾 </span> Library</a>
+          <div class="sidebar__item muted"><span>✏️ </span> Highlights</div>
+          <div class="sidebar__item muted"><span>🔍 </span> Search</div>
         </div>
         <div class="sidebar__bottom">
-          <div class="sidebar__item muted">Help & Support</div>
-          <a href="{% url 'settings' %}" class="sidebar__item active">Settings</a>
+          <a href="{% url 'settings' %}" class="sidebar__item"><span>⚙️ </span> Settings</a>
+          <div class="sidebar__item muted"><span>❓</span> Help & Support</div>
           {% if user.is_authenticated %}
-            <a href="{% url 'logout_user' %}" class="sidebar__item">Logout</a>
+            <a href="{% url 'logout_user' %}" class="sidebar__item"><span>🚪 </span> Logout</a>
           {% else %}
-            <button type="button" class="sidebar__item sidebar__button" data-open-auth="true">Login</button>
+            <button type="button" class="sidebar__item sidebar__button" data-open-auth="true"><span>🚪</span> Login</button>
           {% endif %}
         </div>
-      </aside>
+      </div>
+    </div>
 
       <main class="content-panel">
         <section class="settings-card">

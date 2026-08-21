@@ -6,38 +6,42 @@
 <section class="page-shell page-shell--loggedin">
   <div class="container narrow">
     <div class="row app-layout">
-      <aside class="sidebar">
-        <div class="sidebar__top">
-          <div class="sidebar__brand-wrap">
+      <div class="wrapper">
+    <div class="sidebar">
+        <div class="sidebar__brand-wrap">
             <img src="{% static 'images/logo.png' %}" alt="Summarist logo" class="sidebar__brand" />
-          </div>
-          <a href="{% url 'for_you' %}" class="sidebar__item">For you</a>
-          <a href="{% url 'library' %}" class="sidebar__item active">Library</a>
-          <div class="sidebar__item muted">Highlights</div>
-          <div class="sidebar__item muted">Search</div>
+        </div>
+        <div class="sidebar__top">
+          <a href="{% url 'for_you' %}" class="sidebar__item active"><span>🏠 </span> For you</a>
+          <a href="{% url 'library' %}" class="sidebar__item"><span>💾 </span> Library</a>
+          <div class="sidebar__item muted"><span>✏️ </span> Highlights</div>
+          <div class="sidebar__item muted"><span>🔍 </span> Search</div>
         </div>
         <div class="sidebar__bottom">
-          <div class="sidebar__item muted">Help & Support</div>
-          <a href="{% url 'settings' %}" class="sidebar__item">Settings</a>
+          <a href="{% url 'settings' %}" class="sidebar__item"><span>⚙️</span> Settings</a>
+          <div class="sidebar__item muted"><span>❓ </span> Help & Support</div>
           {% if user.is_authenticated %}
-            <a href="{% url 'logout_user' %}" class="sidebar__item">Logout</a>
+            <a href="{% url 'logout_user' %}" class="sidebar__item"><span>🚪 </span> Logout</a>
           {% else %}
-            <button type="button" class="sidebar__item sidebar__button" data-open-auth="true">Login</button>
+            <button type="button" class="sidebar__item sidebar__button" data-open-auth="true"><span>🚪</span> Login</button>
           {% endif %}
         </div>
-      </aside>
+      </div>
+    </div>
 
       <main class="content-panel">
         <div class="library-grid">
           <div class="library-panel">
             <div class="section-heading">My Library</div>
-            <div class="book-grid two-col">
+            <div class="book-grid">
               {% for book in library_books %}
               <article class="book-card">
                 <a href="{% url 'book_detail' book.id %}">
                   <img src="{{ book.image }}" alt="{{ book.title }}" />
                   <div class="book-card__title">{{ book.title }}</div>
                   <div class="book-card__author">{{ book.author }}</div>
+                  <div class="book-card__subtitle">{{ book.subtitle }}</div>
+                  <div class="book-card__meta"><span>⏱️ {{ book.length }}</span> <span>⭐ {{ book.rating }}</span></div>
                 </a>
               </article>
               {% empty %}
@@ -47,13 +51,15 @@
           </div>
           <div class="library-panel">
             <div class="section-heading">Finished Books</div>
-            <div class="book-grid two-col">
+            <div class="book-grid">
               {% for book in finished_books %}
               <article class="book-card">
                 <a href="{% url 'book_detail' book.id %}">
                   <img src="{{ book.image }}" alt="{{ book.title }}" />
                   <div class="book-card__title">{{ book.title }}</div>
                   <div class="book-card__author">{{ book.author }}</div>
+                  <div class="book-card__subtitle">{{ book.subtitle }}</div>
+                  <div class="book-card__meta"><span>⏱️ {{ book.length }}</span> <span>⭐ {{ book.rating }}</span></div>
                 </a>
               </article>
               {% empty %}
