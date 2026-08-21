@@ -1,5 +1,5 @@
 databases:
-  - name: summarist_DB
+  - name: summarist_db
     plan: free
     databaseName: summarist_projectdb
     user: summarist_project
